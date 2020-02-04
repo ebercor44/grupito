@@ -56,98 +56,58 @@ function seleccionarOfertasPortada($numOfertas){
 ?>
 
 <?php
-//Función para insertar un producto
-function insertarProducto($nombre, $introDescripcion, $descripcion, $imagen, $precio, $precioOferta, $online){
+//Función para Seleccionar todos los productos
+function seleccionarTodasOfertas(){
 	$con=conectarBD();
 	
 	try{
 		//1º- Creamos sentencia sql
-		$sql="INSERT INTO productos(nombre,introDescripcion,descripcion,imagen,precio,precioOferta,online) VALUES(:nombre,:introDescripcion,:descripcion,:imagen,:precio,:precioOferta,:online)";
+		$sql="SELECT * FROM productos WHERE online=1";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
-		//3º-Enlazar los parametros con los valores
-		$stmt->bindParam(":nombre",$nombre);
-		$stmt->bindParam(":introDescripcion",$introDescripcion);
-		$stmt->bindParam(":descripcion",$descripcion);
-		$stmt->bindParam(":imagen",$imagen);
-		$stmt->bindParam(":precio",$precio);
-		$stmt->bindParam(":precioOferta",$precioOferta);
-		$stmt->bindParam(":online",$online);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
-		echo "Error: Error al insertar producto: ".$e->getMessage();
+		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
 		
 		//función que añade contenido en un archivo
 		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
 		exit;
 	}
 	
-	//devuelve el ID del ultimo registro insertado
-	return $con->lastInsertId();
+	return $rows;
 }
 ?>
 
 <?php
-//Función para actualizar un producto
-function actualizarProducto($idProducto, $nombre, $introDescripcion, $descripcion, $imagen, $precio, $precioOferta, $online){
+//Función para Seleccionar un producto
+function seleccionarProducto($idProducto){
 	$con=conectarBD();
 	
 	try{
 		//1º- Creamos sentencia sql
-		$sql="UPDATE productos SET nombre=:nombre, introDescripcion:=introDescripcion, descripcion=:descripcion, imagen=:imagen, precio=:precio, precioOferta=:precioOferta, online=:online WHERE idProducto:=idProducto";
+		$sql="SELECT * FROM productos WHERE idProducto=:idProducto";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
-		$stmt->bindParam(":idProducto",$idProducto);
-		$stmt->bindParam(":introDescripcion",$introDescripcion);
-		$stmt->bindParam(":descripcion",$descripcion);
-		$stmt->bindParam(":imagen",$imagen);
-		$stmt->bindParam(":precio",$precio);
-		$stmt->bindParam(":precioOferta",$precioOferta);
-		$stmt->bindParam(":online",$online);
+		$stmt->bindParam(":idProducto",$idProducto, PDO::PARAM_INT); //PDO::PARAM_INT -> fuerza que el valor sea del tipo INT
 		//4º-Ejecutar sentencia
 		$stmt->execute();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
-		echo "Error: Error al actualizar producto: ".$e->getMessage();
+		echo "Error: Error al seleccionar un producto: ".$e->getMessage();
 		
 		//función que añade contenido en un archivo
 		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
 		exit;
 	}
 	
-	//devuelve el número de filas que se modificaron
-	return $stmt->rowCount();
-}
-?>
-
-<?php
-//Función para borrar un producto
-function eliminarProducto($idProducto){
-	$con=conectarBD();	
-	
-	try{
-		//1º-Creamos sentencia sql
-		$sql="DELETE FROM productos WHERE idProducto=:idProducto";
-		//2º-Preparamos la sentencia sql (precompilada)
-		$stmt=$con->prepare($sql);
-		//3º-Enlazar los parametros con los valores
-		$stmt->bindParam(":idProducto",$idProducto);
-		//4º-Ejecutar sentencia
-		$stmt->execute();
-		
-	}catch(PDOException $e){
-		echo "Error: Error al eliminar producto: ".$e->getMessage();
-		
-		//función que añade contenido en un archivo
-		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
-		exit;
-	}
-	
-	//devuelve el número de filas que se modificaron
-	return $stmt->rowCount();
+	return $row;
 }
 ?>
 

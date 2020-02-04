@@ -101,7 +101,7 @@ function eliminarProducto($idProducto){
 	
 	try{
 		//1º-Creamos sentencia sql
-		$sql="DELETE FROM productos WHERE idProducto=:idProducto";
+		$sql="UPDATE productos SET online=0 WHERE idProducto=:idProducto";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
@@ -121,8 +121,3 @@ function eliminarProducto($idProducto){
 	return $stmt->rowCount();
 }
 ?>
-
-
-
-
-
