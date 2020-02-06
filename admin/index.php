@@ -38,6 +38,8 @@ function imprimirFormulario($usuario){
 		//datos formularios
 		$usuario=recoge("usuario");
 		$password=recoge("password");
+		
+		//datos bbdd
 	}
 
 ?>
