@@ -40,6 +40,20 @@ function imprimirFormulario($usuario){
 		$password=recoge("password");
 		
 		//datos bbdd
+		$datos=seleccionarUsuario($usuario);
+		
+		$email=$datos["email"];
+		$pass=$datos["password"];
+		
+		//comprobamos campos formulario
+		if($usuario==""){
+			$errores=$errores."<li>El campo usuario no puede estar vacío.</li>";
+		}
+		
+		if($password=""){
+			$errores=$errores."<li>El campo contraseña no puede estar vacío.</li>";
+		}
+		
 	}
 
 ?>
