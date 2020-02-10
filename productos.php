@@ -1,10 +1,16 @@
-<?php require_once("inc/encabezado.php"); ?>
 <?php require_once("bbdd/bbdd.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
 <?php
+	$pagina="productos";
+	$titulo="Productos";
+?>
+
+<?php
 	$productos=seleccionarTodasOfertas();
 ?>
+
+<?php require_once("inc/encabezado.php"); ?>
 
 <main role="main">
 

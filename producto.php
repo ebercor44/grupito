@@ -1,4 +1,3 @@
-<?php require_once("inc/encabezado.php"); ?>
 <?php require_once("bbdd/bbdd.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
 
@@ -14,6 +13,14 @@
 	$precioOferta=$producto["precioOferta"];
 	$online=$producto["online"];
 ?>
+
+<?php
+	$pagina="producto";
+	$titulo="Producto";
+?>
+
+<?php require_once("inc/encabezado.php"); ?>
+
 
 <main role="main">
 
