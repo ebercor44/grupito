@@ -44,3 +44,15 @@ function mostrarProductos($productos){
 <?php
 } // fin mostrarProductos
 ?>
+
+<?php
+function mostrarMensaje($mensaje){
+?>
+	<div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3"><?php echo $mensaje; ?></h1>
+    </div>
+  </div>
+<?php
+} //fin mostrarMensaje
+?>
