@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2020 a las 14:29:32
+-- Tiempo de generación: 28-01-2020 a las 18:28:37
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.4
 
@@ -72,7 +72,13 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`idProducto`, `nombre`, `introDescripcion`, `descripcion`, `imagen`, `precio`, `precioOferta`, `online`) VALUES
-(1, 'Spa para 2', 'Spa para 2 por la mitad de precio', 'Esta es una oferta para los más rápidos porque se agotará enseguida', 'spa.jpg', '150.25', '70.99', 1);
+(4, 'Pizza', 'Oferta en nuestra pizzas medianas.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'telepizza.jpg', '15.99', '9.99', 1),
+(5, 'Sushi', 'Oferta bandeja de sushi completa.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'sushi.jpg', '19.99', '12.99', 1),
+(6, 'Tazas', 'Pack de 3 tazas personalizables con fotos.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'tazas.jpg', '14.99', '9.99', 1),
+(7, 'Masaje', 'Masaje relajante con piedras calientes.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'masaje.jpg', '30.99', '22.99', 1),
+(8, 'Yelmo', 'Oferta familiar en Yelmo Cines.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'yelmo.jpg', '25.99', '18.99', 1),
+(9, 'Comida mexicana', 'Oferta en tacos mexicanos.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'comida.jpg', '22.99', '14.99', 1),
+(10, 'Peluqueria', 'Oferta en peinados y tinte.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate urna at lobortis auctor. Curabitur ultricies vestibulum diam eget hendrerit. Ut ac justo laoreet, tempor justo id, semper elit.', 'moza.jpg', '12.99', '8.99', 1);
 
 -- --------------------------------------------------------
 
@@ -142,7 +148,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -158,14 +164,14 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `detallepedido`
 --
 ALTER TABLE `detallepedido`
-  ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
-  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`idPedido`) REFERENCES `pedidos` (`idPedido`);
+  ADD CONSTRAINT `detallepedido_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedidos` (`idPedido`),
+  ADD CONSTRAINT `detallepedido_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`);
 
 --
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `usuarios` (`idUsuario`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

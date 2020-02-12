@@ -18,6 +18,7 @@
   </div>
 
 <?php
+	//print_r($_SESSION['usuario']);
 	if(empty($_SESSION['carrito'])){
 		$mensaje="Carrito vacío";
 		mostrarMensaje($mensaje);
