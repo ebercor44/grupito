@@ -10,7 +10,7 @@
 <?php 
 function imprimirFormulario($usuario){
 ?>
-	<form action="carrito.php" method="post">
+	<form action="#" method="post">
 		<div class="form-group">
 			<label for="usuario">Usuario</label>
 			<input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $usuario; ?>" autofocus="autofocus" />
@@ -64,7 +64,7 @@ function imprimirFormulario($usuario){
 			if($password==""){
 				$errores=$errores."<li>El campo contraseña no puede estar vacío.</li>";
 			}
-			
+	
 			//comprobamos si hay errores
 			if($errores==""){
 				if(password_verify($password, $pass)){

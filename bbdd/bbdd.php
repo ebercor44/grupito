@@ -214,16 +214,16 @@ function eliminarUsuario($idUsuario){
 
 <?php
 //Función para Seleccionar un usuario
-function seleccionarUsuario($idUsuario){
+function seleccionarUsuario($usuario){
 	$con=conectarBD();	
 	
 	try{
 		//1º-Creamos sentencia sql
-		$sql="SELECT * FROM usuarios WHERE idUsuario=:idUsuario";
+		$sql="SELECT * FROM usuarios WHERE email=:email";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
-		$stmt->bindParam(":idUsuario",$idUsuario);
+		$stmt->bindParam(":email",$usuario);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
 		//5ºCreamos un array bidimensional con el resultado de la sentencia sql

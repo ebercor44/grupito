@@ -4,4 +4,6 @@
 	define("USER","root");
 	define("PASS","");
 	define("NUMOFERTAS",3);
+	define("CLAVE_SITIO_WEB","6Lf4jNgUAAAAAAkYYPJEhyaNJeUgHmF6OIxjFymn");
+	define("CLAVE_SECRETA","6Lf4jNgUAAAAAAmeNaQ2Pmhecj7DcJxzSTaXMtFN");
 ?>

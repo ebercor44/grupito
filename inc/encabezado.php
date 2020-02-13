@@ -44,6 +44,23 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="./css/jumbotron.css" rel="stylesheet">
+		
+	<?php
+		if($pagina=='registrarse'){
+	?>
+		  <script src='https://www.google.com/recaptcha/api.js?render=<?php echo CLAVE_SITIO_WEB; ?>'></script>
+			<script>
+				grecaptcha.ready(function() {
+				grecaptcha.execute('<?php echo CLAVE_SITIO_WEB; ?>', {action: 'formulario'})
+				.then(function(token) {
+				var recaptchaResponse = document.getElementById('recaptchaResponse');
+				recaptchaResponse.value = token;
+				});});
+			</script>
+	<?php
+		}
+	?>
+		
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -73,7 +90,7 @@
 				if(isset($_SESSION["usuario"])){
 			?>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido Fulanito</a>
+						<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido <?php echo $_SESSION['usuario']; ?></a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<a class="dropdown-item" href="misDatos.php">Mis Datos</a>
 							<a class="dropdown-item" href="misPedidos.php">Mis Pedidos</a>

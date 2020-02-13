@@ -39,6 +39,9 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 			<label for="telefono">Teléfono</label>
 			<input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefono; ?>" />
 		</div>
+		
+		<input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+		
 		<button type="submit" class="btn btn-success" name="guardar" value="guardar">Guardar</button>
 		<a href="login.php" class="btn btn-danger">Volver</a>
 	</form>
@@ -65,6 +68,19 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 			imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono);
 		}else{
 			$errores="";
+			
+			//validar Captcha
+			$recaptcha_url='https://www.google.com/recaptcha/api/siteverify'; 
+			$recaptcha_secret=CLAVE_SECRETA; 
+			$recaptcha_response=recoge('recaptcha_response'); 
+			$recaptcha=file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+			$recaptcha=json_decode($recaptcha); 
+
+			if($recaptcha->score < 0.7){
+				$errores=$errores."<li>Detectado robot.</li>";
+			}
+			
+			//recogemos valores formulario
 			$usuario=recoge("usuario");
 			$password=recoge("password");
 			$password2=recoge("password2");
