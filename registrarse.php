@@ -55,7 +55,7 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
   <!-- Main jumbotron for a primary marketing message or call to action -->
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Registrase</h1>
+      <h1 class="display-3">Registrarse</h1>
 			
 	<?php
 		if(!isset($_REQUEST['guardar'])){

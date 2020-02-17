@@ -226,8 +226,9 @@ function seleccionarUsuario($usuario){
 		$stmt->bindParam(":email",$usuario);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
-		//5ºCreamos un array bidimensional con el resultado de la sentencia sql
-		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+		//guardamos el idPedido de la última linea insertada
+		$idPedido=$conexion->lastInsertId();
 		
 	}catch(PDOException $e){
 		echo "Error: Error al seleccionar un usuario: ".$e->getMessage();
@@ -241,6 +242,65 @@ function seleccionarUsuario($usuario){
 }
 ?>
 
+
+<?php
+//Función para Insertar un pedido
+function seleccionarUsuario($idUsuario,$detallePedido,$total){
+	$con=conectarBD();	
+	
+	try{
+		//creamos una transacción
+		$conexion->beginTransaction();
+		//1º-Creamos sentencia sql
+		$sql="INSERT INTO pedidos(idUsuario,total) VALUES(:idUsuario,:total)";
+		//2º-Preparamos la sentencia sql (precompilada)
+		$stmt=$con->prepare($sql);
+		//3º-Enlazar los parametros con los valores
+		$stmt->bindParam(":idUsuario",$idUsuario);
+		$stmt->bindParam(":total",$total);
+		//4º-Ejecutar sentencia
+		$stmt->execute();
+		//5ºCreamos un array bidimensional con el resultado de la sentencia sql
+		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+		//recorremos array con las líneas de pedido
+		foreach($detallePedido as $idProducto => $cantidad){
+			//funcion para seleccionar un producto
+			$producto=seleccionarProducto($idProducto);
+			$precio=$producto['precioOferta'];
+			
+			//1º-Creamos sentencia sql
+			$sql2="INSERT INTO detallepedido(idPedido,idProducto,cantidad,precio) VALUES(:idPedido,:idProducto,:cantidad,:precio)";
+			//2º-Preparamos la sentencia sql (precompilada)
+			$stmt=$con->prepare($sql2);
+			//3º-Enlazar los parametros con los valores
+			$stmt->bindParam(":idPedido",$idPedido);
+			$stmt->bindParam(":idProducto",$idProducto);
+			$stmt->bindParam(":cantidad",$cantidad);
+			$stmt->bindParam(":precio",$precio);
+			//4º-Ejecutar sentencia
+			$stmt->execute();
+			
+		} //fin foreach
+		
+		//confirmamos las inserciones
+		$conexion->commit();
+		
+	}catch(PDOException $e){
+		//deshacemos las inserciones
+		$conexion->rollback();
+		
+		echo "Error: Error al insertar un pedido: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	//devuelve el idPedido
+	return $idPedido;
+}
+?>
 
 
 
