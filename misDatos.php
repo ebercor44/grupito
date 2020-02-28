@@ -34,7 +34,8 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 			<input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefono; ?>" readonly="readonly" />
 		</div>
 		
-		<a href="modificarDatos.php" class="btn btn-success">Modificar</a>
+		<a href="modificarDatos.php" class="btn btn-warning">Modificar Datos</a>
+		<a href="modificarPassword.php" class="btn btn-success">Modificar Contraseña</a>
 		<a href="index.php" class="btn btn-danger">Volver</a>
 	</form>
 	

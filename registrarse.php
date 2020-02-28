@@ -121,7 +121,6 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 					imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono);
 				}else{
 					$user=insertarUsuario($usuario,$password,$nombre,$apellidos,$direccion,$telefono);
-					echo $user;
 					//comprobamos si se inserto correctamente
 					if($user==1){
 						echo "<div class='alert alert-success' role='alert'>";

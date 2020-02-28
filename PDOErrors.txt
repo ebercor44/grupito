@@ -1,3 +1,5 @@
 
 12 February, 2020, 11:52 pmSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null
 12 February, 2020, 11:53 pmSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'email' cannot be null
+18 February, 2020, 4:53 pmSQLSTATE[42S22]: Column not found: 1054 Unknown column 'online' in 'field list'
+18 February, 2020, 4:55 pmSQLSTATE[42S22]: Column not found: 1054 Unknown column 'online' in 'field list'

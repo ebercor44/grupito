@@ -151,19 +151,18 @@ function insertarUsuario($email,$password,$nombre,$apellidos,$direccion,$telefon
 
 <?php
 //Función para Actualizar un usuario
-function actualizarUsuario($idUsuario,$email,$password,$apellidos,$direccion,$telefono,$online){
-	$con=conectarBD();	
-	$passEncrip=password_hash($password, PASSWORD_DEFAULT);
+function actualizarUsuario($email,$nombre,$apellidos,$direccion,$telefono){
+	$con=conectarBD();
+	$online=1;
 	
 	try{
 		//1º-Creamos sentencia sql
-		$sql="UPDATE usuarios SET email=:email,password=:password,apellidos=:apellidos,direccion=:direccion,telefono=:telefono,online=:online WHERE idUsuario=:idUsuario";
+		$sql="UPDATE usuarios SET nombre=:nombre,apellidos=:apellidos,direccion=:direccion,telefono=:telefono,online=:online WHERE email=:email";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
-		$stmt->bindParam(":idUsuario",$idUsuario);
 		$stmt->bindParam(":email",$email);
-		$stmt->bindParam(":password",$passEncrip);
+		$stmt->bindParam(":nombre",$nombre);
 		$stmt->bindParam(":apellidos",$apellidos);
 		$stmt->bindParam(":direccion",$direccion);
 		$stmt->bindParam(":telefono",$telefono);
@@ -226,9 +225,8 @@ function seleccionarUsuario($usuario){
 		$stmt->bindParam(":email",$usuario);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
-		
-		//guardamos el idPedido de la última linea insertada
-		$idPedido=$conexion->lastInsertId();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
 		echo "Error: Error al seleccionar un usuario: ".$e->getMessage();
@@ -245,7 +243,7 @@ function seleccionarUsuario($usuario){
 
 <?php
 //Función para Insertar un pedido
-function seleccionarUsuario($idUsuario,$detallePedido,$total){
+function insertarPedido($idUsuario,$detallePedido,$total){
 	$con=conectarBD();	
 	
 	try{
@@ -262,6 +260,9 @@ function seleccionarUsuario($idUsuario,$detallePedido,$total){
 		$stmt->execute();
 		//5ºCreamos un array bidimensional con el resultado de la sentencia sql
 		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+		//guardamos el idPedido de la última linea insertada
+		$idPedido=$conexion->lastInsertId();
 		
 		//recorremos array con las líneas de pedido
 		foreach($detallePedido as $idProducto => $cantidad){
@@ -299,7 +300,8 @@ function seleccionarUsuario($idUsuario,$detallePedido,$total){
 	
 	//devuelve el idPedido
 	return $idPedido;
-}
+	
+} //fin insertarPedido
 ?>
 
 
