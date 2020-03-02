@@ -8,6 +8,30 @@
 
 <?php require_once("inc/encabezado.php"); ?>
 
+<?php
+function imprimirFormulario(){
+?>
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+		<div class="form-group">
+			<label for="password">Contraseña Actual</label>
+			<input type="password" class="form-control" id="password" name="password" autofocus="autofocus" />
+		</div>
+		<div class="form-group">
+			<label for="newpass">Nueva Contraseña</label>
+			<input type="password" class="form-control" id="newpass" name="newpass" />
+		</div>
+		<div class="form-group">
+			<label for="newpass2">Repita Nueva Contraseña</label>
+			<input type="password" class="form-control" id="newpass2" name="newpass2" />
+		</div>
+		
+		<button type="submit" class="btn btn-success" name="guardar" value="guardar">Guardar</button>
+		<a href="misDatos.php" class="btn btn-danger">Cancelar</a>
+	</form>
+
+<?php
+}
+?>
 
 <main role="main">
 

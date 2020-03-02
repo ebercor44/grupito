@@ -240,6 +240,36 @@ function seleccionarUsuario($usuario){
 }
 ?>
 
+<?php
+//Función para Actualizar contraseña a un usuario
+function actualizarPassword($email,$password){
+	$con=conectarBD();
+	$passEncrip=password_hash($password, PASSWORD_DEFAULT);
+	
+	try{
+		//1º-Creamos sentencia sql
+		$sql="UPDATE usuarios SET password=:password WHERE email=:email";
+		//2º-Preparamos la sentencia sql (precompilada)
+		$stmt=$con->prepare($sql);
+		//3º-Enlazar los parametros con los valores
+		$stmt->bindParam(":email",$email);
+		$stmt->bindParam(":password",$passEncrip);
+		//4º-Ejecutar sentencia
+		$stmt->execute();
+		
+	}catch(PDOException $e){
+		echo "Error: Error al actualizar contraseña del usuario: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	//devuelve el número de filas que se modificaron
+	return $stmt->rowCount();
+}
+?>
+
 
 <?php
 //Función para Insertar un pedido

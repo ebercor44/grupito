@@ -95,12 +95,12 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 					//comprobamos si se actualizo correctamente
 					if($user==1){
 						echo "<div class='alert alert-success' role='alert'>";
-							echo "El usuario $usuario ha sido insertado correctamente";
+							echo "Los datos del $usuario han sido actualizados correctamente";
 						echo "</div>";
 						echo "<a href='misDatos.php' class='btn btn-success'>Volver Mis Datos</a>";
 					}else{
 						echo "<div class='alert alert-danger' role='alert'>";
-							echo "ERROR: Usuario no insertado";
+							echo "ERROR: Datos no actualizados";
 						echo "</div>";
 						imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono);
 					}
