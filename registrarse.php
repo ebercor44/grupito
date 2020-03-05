@@ -7,6 +7,8 @@
 	$titulo="Registrase";
 ?>
 
+<?php require_once("inc/encabezado.php"); ?>
+
 <?php 
 function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 ?>
@@ -146,4 +148,4 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 
 </main>
 
-<?php require_once("inc/encabezado.php"); ?>
+<?php require_once("inc/pie.php"); ?>

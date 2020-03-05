@@ -1,3 +1,8 @@
+---- Administrador ----
 Administración (backend)
-Modificar Mis Datos
-ConfirmarPedido
+
+login => crear nueva tabla bbdd administradores y utilizarla para el login
+
+---- Cliente ----
+misPedidos.php
+detallePedido.php

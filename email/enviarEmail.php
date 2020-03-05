@@ -19,7 +19,7 @@ function enviarEmail($nombre,$email,$asunto,$mensaje){
 
 	try {
 			//Server settings
-			$mail->SMTPDebug = 2; //SMTP::DEBUG_SERVER;                       // Enable verbose debug output
+			$mail->SMTPDebug = 0; //SMTP::DEBUG_SERVER;                       // Enable verbose debug output
 			$mail->isSMTP();                                            			// Send using SMTP
 			$mail->Host       = HOST_EMAIL;                    					// Set the SMTP server to send through
 			$mail->SMTPAuth   = true;                                   			// Enable SMTP authentication
@@ -54,7 +54,7 @@ function enviarEmail($nombre,$email,$asunto,$mensaje){
 			echo "El mensaje no se pudo enviar. Mailer Error: {$mail->ErrorInfo}";
 			$enviado=false;
 	}
-	return enviado;
+	return $enviado;
 	
 } //fin enviarEmail
 ?>

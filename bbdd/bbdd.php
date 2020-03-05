@@ -278,7 +278,7 @@ function insertarPedido($idUsuario,$detallePedido,$total){
 	
 	try{
 		//creamos una transacción
-		$conexion->beginTransaction();
+		$con->beginTransaction();
 		//1º-Creamos sentencia sql
 		$sql="INSERT INTO pedidos(idUsuario,total) VALUES(:idUsuario,:total)";
 		//2º-Preparamos la sentencia sql (precompilada)
@@ -288,11 +288,9 @@ function insertarPedido($idUsuario,$detallePedido,$total){
 		$stmt->bindParam(":total",$total);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
-		//5ºCreamos un array bidimensional con el resultado de la sentencia sql
-		$row=$stmt->fetch(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 		//guardamos el idPedido de la última linea insertada
-		$idPedido=$conexion->lastInsertId();
+		$idPedido=$con->lastInsertId();
 		
 		//recorremos array con las líneas de pedido
 		foreach($detallePedido as $idProducto => $cantidad){
@@ -315,11 +313,11 @@ function insertarPedido($idUsuario,$detallePedido,$total){
 		} //fin foreach
 		
 		//confirmamos las inserciones
-		$conexion->commit();
+		$con->commit();
 		
 	}catch(PDOException $e){
 		//deshacemos las inserciones
-		$conexion->rollback();
+		$con->rollback();
 		
 		echo "Error: Error al insertar un pedido: ".$e->getMessage();
 		

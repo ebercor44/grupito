@@ -53,6 +53,7 @@ function imprimirFormulario($usuario){
 			//datos bbdd
 			$datos=seleccionarUsuario($usuario);
 			
+			$idUser=$datos['idUsuario'];
 			$user=$datos['email'];
 			$pass=$datos['password'];
 			
@@ -68,7 +69,8 @@ function imprimirFormulario($usuario){
 			//comprobamos si hay errores
 			if($errores==""){
 				if(password_verify($password, $pass)){
-					$_SESSION["usuario"]=$usuario;
+					$_SESSION['usuario']=$usuario;
+					$_SESSION['idUsuario']=$idUser;
 					header("Location:index.php");
 				}else{
 					$errores=$errores."<li>Los campos usuario o contraseña son incorrectos.</li>";

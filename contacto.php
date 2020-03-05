@@ -85,9 +85,9 @@ function imprimirFormulario($nombre,$email,$asunto,$mensaje){
 					echo "<div class='alert alert-danger' role='alert'><ul>$errores</ul></div>";
 					imprimirFormulario($nombre,$email,$asunto,$mensaje);
 			}else{
-				$ok=enviarEmail($nombre,$email,$asunto,$mensaje);
+				$emailOK=enviarEmail($nombre,$email,$asunto,$mensaje);
 				//comprobamos si se actualizo correctamente
-				if($ok){
+				if($emailOK){
 					echo "<div class='alert alert-success' role='alert'>";
 						echo "Correo enviado correctamente.";
 					echo "</div>";
