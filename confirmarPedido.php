@@ -17,7 +17,7 @@
   </div>
 
 <?php
-	//comprobamos si no existe la variable de sesión carrito
+	//comprobamos si existe la variable de sesión carrito
 	if(!isset($_SESSION['carrito'])){
 		echo "<div class='alert alert-danger' role='alert'>";
 			echo "Tu carrito está vacío.";

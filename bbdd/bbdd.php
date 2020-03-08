@@ -333,5 +333,60 @@ function insertarPedido($idUsuario,$detallePedido,$total){
 ?>
 
 
+<?php
+//Función para Seleccionar todos los pedidos de un usuario
+function seleccionarPedidos($idUsuario){
+	$con=conectarBD();
+	
+	try{
+		//1º- Creamos sentencia sql
+		$sql="SELECT * FROM pedidos WHERE idUsuario=:idUsuario";
+		//2º-Preparamos la sentencia sql (precompilada)
+		$stmt=$con->prepare($sql);
+		//3º-Enlazar los parametros con los valores
+		$stmt->bindParam(":idUsuario",$idUsuario);
+		//4º-Ejecutar sentencia
+		$stmt->execute();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+	}catch(PDOException $e){
+		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	return $rows;
+}
+?>
 
-
+<?php
+//Función para Seleccionar todos los pedidos detalles de un pedido
+function seleccionarDetallePedido($idPedido){
+	$con=conectarBD();
+	
+	try{
+		//1º- Creamos sentencia sql
+		$sql="SELECT * FROM detallepedido WHERE idPedido=:idPedido";
+		//2º-Preparamos la sentencia sql (precompilada)
+		$stmt=$con->prepare($sql);
+		//3º-Enlazar los parametros con los valores
+		$stmt->bindParam(":idPedido",$idPedido);
+		//4º-Ejecutar sentencia
+		$stmt->execute();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+	}catch(PDOException $e){
+		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	return $rows;
+}
+?>
