@@ -50,6 +50,10 @@
 			
 			//comprobamos si se inserto correctamente
 			if($pedidoOK){
+				//eliminamos variables de sesion del carrito y del total
+				unset($_SESSION['carrito']); //eliminamos todo el carrito
+				unset($_SESSION['total']); //eliminamos el total
+				
 				echo "<div class='alert alert-success' role='alert'>";
 					echo "El pedido fue insertado correctamente.";
 				echo "</div>";

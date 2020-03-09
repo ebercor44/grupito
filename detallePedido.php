@@ -11,18 +11,15 @@
 
 <?php
 	$idPedido=recoge('idPedido');
-	$usuario=$_SESSION['usuario']
+	$usuario=$_SESSION['usuario'];
 ?>
 
 <main role="main">
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">Detalle del pedido <?php $idPedido; ?></h1>
+      <h1 class="display-3">Detalle del pedido Nº<?php echo $idPedido; ?></h1>
     </div>
   </div>
-	
-	<p>Estimado cliente <strong><?php echo $usuario; ?></strong>.</p>
-	<p>Detalle del pedido <strong>Nº <?php echo $idPedido; ?></strong></p>
 	
 	<div class="row px-5">
 		<table class="table table-striped">
@@ -53,7 +50,7 @@
 				$idProducto=$detalle['idProducto'];
 				$cantidad=$detalle['cantidad'];
 				$precio=$detalle['precio'];
-				$total=$total+$precio;
+				$total=$total+($precio*$cantidad);
 	?>
 				<tr>
 					<td scope="col"><?php echo $idPedido; ?></td>
@@ -66,7 +63,7 @@
 		}
 	?>
 				<tr>
-					<td scope="row" colspan="3" class="text-right">TOTAL=<?php echo "$total &euro;"; ?></td>
+					<td scope="row" colspan="4" class="text-right"><strong>TOTAL=<?php echo "$total &euro;"; ?></strong></td>
 				</tr>
 			</tbody>
 		</table>

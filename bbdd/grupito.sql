@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-02-2020 a las 14:05:06
+-- Tiempo de generación: 09-03-2020 a las 11:13:06
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.4
 
@@ -36,6 +36,36 @@ CREATE TABLE `detallepedido` (
   `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `detallepedido`
+--
+
+INSERT INTO `detallepedido` (`idDetallePedido`, `idPedido`, `idProducto`, `cantidad`, `precio`) VALUES
+(1, 16, 4, 2, '9.99'),
+(2, 17, 4, 2, '9.99'),
+(3, 19, 5, 2, '12.99'),
+(4, 19, 8, 1, '18.99'),
+(5, 19, 4, 1, '9.99');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estadopedido`
+--
+
+CREATE TABLE `estadopedido` (
+  `idEstadoPedido` int(11) NOT NULL,
+  `estado` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estadopedido`
+--
+
+INSERT INTO `estadopedido` (`idEstadoPedido`, `estado`) VALUES
+(1, 'Pendiente de envío'),
+(2, 'Enviado');
+
 -- --------------------------------------------------------
 
 --
@@ -47,9 +77,18 @@ CREATE TABLE `pedidos` (
   `idUsuario` int(11) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `total` decimal(10,2) NOT NULL,
-  `estado` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` int(11) NOT NULL,
   `online` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`idPedido`, `idUsuario`, `fecha`, `total`, `estado`, `online`) VALUES
+(16, 1, '2020-03-05 13:52:37', '19.98', 1, 1),
+(17, 1, '2020-03-05 13:52:59', '19.98', 1, 1),
+(19, 1, '2020-03-09 10:49:36', '54.96', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -103,7 +142,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `email`, `password`, `nombre`, `apellidos`, `direccion`, `telefono`, `online`) VALUES
-(1, 'eber@gmail.com', '$2y$10$uyYkNJXrghpBRMVsGz/7dOe3FqnI5oc6niBHFi4RMRlI3Z6UxNmlq', 'Éber', 'Cordeiro Martínez', 'C/ María Martín nº2 2ºE', '629262356', 1),
+(1, 'eber@gmail.com', '$2y$10$I8hPkjspXOldvx.FpZP2fepKQVKBoFUVKEX8I/TyivRYP5pD46672', 'Éber', 'Cordeiro Martínez', 'C/ María Martín nº2 2ºE', '629262356', 1),
 (2, 'nerea@gmail.com', '$2y$10$GBC.LeGhuD6ju89xESdknuBWtph2.8rA5uP.anx2/1TbYwGCL0YIu', 'Nerea', 'Pena Fernández', 'Avenida Fragata Almansa nº20 P2 4ºA', '628477469', 1),
 (3, 'manuel@gmail.com', '$2y$10$NocV12YE8NfN5KklyDSSi.lLMRtdt8yhWq.nqw0HDb6DSeiaNPpYm', 'Manuel', 'Vázquez Suárez', 'C/ Albarren nº18', '677899498', 1);
 
@@ -120,11 +159,18 @@ ALTER TABLE `detallepedido`
   ADD KEY `idProducto` (`idProducto`);
 
 --
+-- Indices de la tabla `estadopedido`
+--
+ALTER TABLE `estadopedido`
+  ADD PRIMARY KEY (`idEstadoPedido`);
+
+--
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`idPedido`),
-  ADD KEY `idUsuario` (`idUsuario`);
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `productos`
@@ -147,13 +193,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `detallepedido`
 --
 ALTER TABLE `detallepedido`
-  MODIFY `idDetallePedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetallePedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `estadopedido`
+--
+ALTER TABLE `estadopedido`
+  MODIFY `idEstadoPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -182,7 +234,8 @@ ALTER TABLE `detallepedido`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`estado`) REFERENCES `estadopedido` (`idEstadoPedido`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
