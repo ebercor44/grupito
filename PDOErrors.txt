@@ -19,3 +19,5 @@
 5 March, 2020, 1:40 pmSQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`grupito`.`pedidos`, CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`))
 5 March, 2020, 1:48 pmSQLSTATE[23000]: Integrity constraint violation: 1048 Column 'idUsuario' cannot be null
 9 March, 2020, 10:47 amSQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`grupito`.`pedidos`, CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`estado`) REFERENCES `estadopedido` (`idEstadoPedido`))
+9 March, 2020, 9:25 pmSQLSTATE[42S02]: Base table or view not found: 1146 Table 'grupito.detallepedidos' doesn't exist
+9 March, 2020, 9:25 pmSQLSTATE[23000]: Integrity constraint violation: 1052 Column 'precio' in field list is ambiguous

@@ -353,7 +353,7 @@ function seleccionarPedidos($idUsuario){
 		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
-		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
+		echo "Error: Error al seleccionar todos los pedidos de un usuario: ".$e->getMessage();
 		
 		//función que añade contenido en un archivo
 		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
@@ -365,7 +365,7 @@ function seleccionarPedidos($idUsuario){
 ?>
 
 <?php
-//Función para Seleccionar todos los pedidos detalles de un pedido
+//Función para Seleccionar todos los detalles pedido de un pedido
 function seleccionarDetallePedido($idPedido){
 	$con=conectarBD();
 	
@@ -382,7 +382,7 @@ function seleccionarDetallePedido($idPedido){
 		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
-		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
+		echo "Error: Error al seleccionar todos los detalles pedido: ".$e->getMessage();
 		
 		//función que añade contenido en un archivo
 		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
@@ -395,12 +395,42 @@ function seleccionarDetallePedido($idPedido){
 
 <?php
 //Función para Seleccionar los datos de un usuario y de su pedido
-function seleccionarDatosPedido($idPedido){
+function seleccionarDatosPedido($idPedido,$email){
 	$con=conectarBD();
 	
 	try{
 		//1º- Creamos sentencia sql
-		$sql="SELECT * FROM detallepedido WHERE idPedido=:idPedido";
+		$sql="SELECT idPedido,fecha,total,estado,email,nombre,apellidos,direccion,telefono FROM pedidos p JOIN usuarios u ON p.idUsuario=u.idUsuario WHERE idPedido=:idPedido AND email=:email";
+		//2º-Preparamos la sentencia sql (precompilada)
+		$stmt=$con->prepare($sql);
+		//3º-Enlazar los parametros con los valores
+		$stmt->bindParam(":idPedido",$idPedido);
+		$stmt->bindParam(":email",$email);
+		//4º-Ejecutar sentencia
+		$stmt->execute();
+		//5º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+	}catch(PDOException $e){
+		echo "Error: Error al seleccionar los datos pedido: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	return $rows;
+}
+?>
+
+<?php
+//Función para Seleccionar los datos de un usuario y de su pedido
+function seleccionarDatosDetallePedido($idPedido){
+	$con=conectarBD();
+	
+	try{
+		//1º- Creamos sentencia sql
+		$sql="SELECT idPedido,cantidad,d.precio,nombre FROM detallepedido d JOIN productos p ON d.idProducto=p.idProducto WHERE idPedido=:idPedido";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
@@ -411,7 +441,7 @@ function seleccionarDatosPedido($idPedido){
 		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
 		
 	}catch(PDOException $e){
-		echo "Error: Error al seleccionar todos los productos: ".$e->getMessage();
+		echo "Error: Error al seleccionar los datos detalle pedido: ".$e->getMessage();
 		
 		//función que añade contenido en un archivo
 		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
@@ -421,3 +451,30 @@ function seleccionarDatosPedido($idPedido){
 	return $rows;
 }
 ?>
+
+<?php
+//Función para Seleccionar todos los estados
+function seleccionarEstados(){
+	$con=conectarBD();
+	
+	try{
+		//1º- Creamos sentencia sql
+		$sql="SELECT * FROM estadopedido";
+		//2º-Ejecutar sentencia
+		$stmt=$con->query($sql);
+		//3º-Creamos un array bidimensional con el resultado de la sentencia sql
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC); //PDO::FETCH_ASSOC -> parametro para que nos devuelve un array asociativo
+		
+	}catch(PDOException $e){
+		echo "Error: Error al seleccionar todos los estados: ".$e->getMessage();
+		
+		//función que añade contenido en un archivo
+		file_put_contents("PDOErrors.txt","\r\n".date('j F, Y, g:i a').$e->getMessage(),FILE_APPEND);
+		exit;
+	}
+	
+	return $rows;
+}
+?>
+
+

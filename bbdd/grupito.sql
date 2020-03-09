@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2020 a las 11:13:06
+-- Tiempo de generación: 09-03-2020 a las 21:40:02
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.4
 
@@ -21,6 +21,18 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `grupito`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administradores`
+--
+
+CREATE TABLE `administradores` (
+  `idAdmin` int(11) NOT NULL,
+  `usuario` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(250) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -151,6 +163,12 @@ INSERT INTO `usuarios` (`idUsuario`, `email`, `password`, `nombre`, `apellidos`,
 --
 
 --
+-- Indices de la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  ADD PRIMARY KEY (`idAdmin`);
+
+--
 -- Indices de la tabla `detallepedido`
 --
 ALTER TABLE `detallepedido`
@@ -188,6 +206,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `detallepedido`
