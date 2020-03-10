@@ -14,7 +14,7 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 ?>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 		<div class="form-group">
-			<label for="nombre">Usuario</label>
+			<label for="usuario">Usuario</label>
 			<input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $usuario; ?>" readonly="readonly" />
 		</div>
 		<div class="form-group">
@@ -34,7 +34,7 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 			<input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $telefono; ?>" readonly="readonly" />
 		</div>
 		
-		<a href="modificarDatos.php" class="btn btn-warning">Modificar Datos</a>
+		<a href="modificarDatos.php" class="btn btn-primary">Modificar Datos</a>
 		<a href="modificarPassword.php" class="btn btn-success">Modificar Contraseña</a>
 		<a href="index.php" class="btn btn-danger">Volver</a>
 	</form>
@@ -44,6 +44,7 @@ function imprimirFormulario($usuario,$nombre,$apellidos,$direccion,$telefono){
 ?>
 
   <!-- Main jumbotron for a primary marketing message or call to action -->
+<main role="main">
   <div class="jumbotron">
     <div class="container">
       <h1 class="display-3">Mis Datos</h1>

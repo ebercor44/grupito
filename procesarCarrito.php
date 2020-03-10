@@ -24,8 +24,10 @@
 			//comprobamos si el producto ya está en el carrito
 			if(isset($_SESSION['carrito'][$idProducto])){
 				$_SESSION['carrito'][$idProducto]++;
+				$_SESSION['unidades']++;
 			}else{
 				$_SESSION['carrito'][$idProducto]=1;
+				$_SESSION['unidades']=(isset($_SESSION['unidades']))? $_SESSION['unidades']+1 : 1; //si existe $_SESSION['unidades'] sumamos 1 y sino lo igualamos a 1
 			}
 			break;
 			
@@ -33,6 +35,7 @@
 			//comprobamos si el producto ya está en el carrito
 			if(isset($_SESSION['carrito'][$idProducto])){
 				$_SESSION['carrito'][$idProducto]--;
+				$_SESSION['unidades']--;
 				
 				//comprobamos si las unidades son menores o iguales a 0
 				if($_SESSION['carrito'][$idProducto]<=0){
@@ -43,6 +46,8 @@
 		
 		case "empty":
 			unset($_SESSION['carrito']); //eliminamos todo el carrito
+			unset($_SESSION['unidades']); //eliminamos unidades
+			unset($_SESSION['total']); //eliminamos total
 			break;
 			
 		default:

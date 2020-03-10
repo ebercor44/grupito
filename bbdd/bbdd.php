@@ -395,17 +395,16 @@ function seleccionarDetallePedido($idPedido){
 
 <?php
 //Función para Seleccionar los datos de un usuario y de su pedido
-function seleccionarDatosPedido($idPedido,$email){
+function seleccionarDatosPedido($idPedido){
 	$con=conectarBD();
 	
 	try{
 		//1º- Creamos sentencia sql
-		$sql="SELECT idPedido,fecha,total,estado,email,nombre,apellidos,direccion,telefono FROM pedidos p JOIN usuarios u ON p.idUsuario=u.idUsuario WHERE idPedido=:idPedido AND email=:email";
+		$sql="SELECT idPedido,fecha,total,estado,email,nombre,apellidos,direccion,telefono FROM pedidos p JOIN usuarios u ON p.idUsuario=u.idUsuario WHERE idPedido=:idPedido";
 		//2º-Preparamos la sentencia sql (precompilada)
 		$stmt=$con->prepare($sql);
 		//3º-Enlazar los parametros con los valores
 		$stmt->bindParam(":idPedido",$idPedido);
-		$stmt->bindParam(":email",$email);
 		//4º-Ejecutar sentencia
 		$stmt->execute();
 		//5º-Creamos un array bidimensional con el resultado de la sentencia sql

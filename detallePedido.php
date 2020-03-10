@@ -23,7 +23,7 @@
 				echo "<a href='login.php' class='btn btn-success'>Identifícate</a>";
 				
 			}else{
-				$datos=seleccionarDatosPedido($idPedido,$usuario);
+				$datos=seleccionarDatosPedido($idPedido);
 				$estados=seleccionarEstados();
 	
 				foreach($datos as $dato){
@@ -33,7 +33,7 @@
 					$apellidos=$dato['apellidos'];
 					$direccion=$dato['direccion'];
 					$telefono=$dato['telefono'];
-					$estado=$dato['estado'];
+					$estadoP=$dato['estado'];
 				}
 			}	
 ?>
@@ -48,13 +48,14 @@
       <h4 class="display-5"><strong>Dirección:</strong> <?php echo $direccion; ?></h4>
       <h4 class="display-5"><strong>Teléfono:</strong> <?php echo $telefono; ?></h4>
       <h4 class="display-5"><strong>Estado:</strong>
-				<select name="select">
+				<select name="estado">
 					<?php
 						foreach($estados as $estado){
-							$idEstado=$estado['idEstado'];
-							$estado=$estado['estado'];
-							
-							echo "<option value='$idEstado'>$estado</option>";
+							$idEstado=$estado['idEstadoPedido'];
+							$nombreEstado=$estado['estado'];
+					?>	
+							<option value='<?php echo "$idEstado"; ?>' <?php if($idEstado==$estadoP){ echo " selected"; } ?>> <?php echo $nombreEstado; ?> </option>
+					<?php	
 						}
 					?>
 				</select>

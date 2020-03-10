@@ -21,3 +21,6 @@
 9 March, 2020, 10:47 amSQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`grupito`.`pedidos`, CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`estado`) REFERENCES `estadopedido` (`idEstadoPedido`))
 9 March, 2020, 9:25 pmSQLSTATE[42S02]: Base table or view not found: 1146 Table 'grupito.detallepedidos' doesn't exist
 9 March, 2020, 9:25 pmSQLSTATE[23000]: Integrity constraint violation: 1052 Column 'precio' in field list is ambiguous
+10 March, 2020, 5:24 pmSQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+10 March, 2020, 5:24 pmSQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+10 March, 2020, 5:24 pmSQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
