@@ -1,0 +1,13 @@
+<?php
+	define("HOST","localhost");
+	define("DBNAME","grupito");
+	define("USER","root");
+	define("PASS","");
+	define("NUMOFERTAS",3);
+	define("CLAVE_SITIO_WEB","6Lf4jNgUAAAAAAkYYPJEhyaNJeUgHmF6OIxjFymn");
+	define("CLAVE_SECRETA","6Lf4jNgUAAAAAAmeNaQ2Pmhecj7DcJxzSTaXMtFN");
+	define("HOST_EMAIL","smtp.gmail.com");
+	define("USERNAME_EMAIL","ebercor44@gmail.com");
+	define("PASSWORD_EMAIL","pgyhxfdqzmxetojb");
+	define("PORT_EMAIL",587);
+?>

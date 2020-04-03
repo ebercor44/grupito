@@ -52,6 +52,7 @@
 			if($pedidoOK){
 				//eliminamos variables de sesion del carrito y del total
 				unset($_SESSION['carrito']); //eliminamos todo el carrito
+				$_SESSION['unidades']=0; //eliminamos unidades
 				
 				echo "<div class='alert alert-success' role='alert'>";
 					echo "El pedido fue insertado correctamente.";

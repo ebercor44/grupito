@@ -1,12 +1,16 @@
 <?php session_start(); ?>
-<?php require_once("inc/bbdd.php"); ?>
+<?php require_once("bbdd/bbdd.php"); ?>
 <?php require_once("inc/funciones.php"); ?>
-<?php require_once("inc/encabezado.php"); ?>
+
+<?php
+	$pagina="index";
+	$titulo="Iniciar Sesión";
+?>
 
 <?php 
 function imprimirFormulario($usuario){
 ?>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+	<form action="#" method="post">
 		<div class="form-group">
 			<label for="usuario">Usuario</label>
 			<input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $usuario; ?>" autofocus="autofocus" />
@@ -22,41 +26,69 @@ function imprimirFormulario($usuario){
 } //fin imprimirFormulario
 ?>
 
-<main role="main" class="container">
-	<h1 class="mt-5">Inicio de sesión</h1>
-	
-<?php
-	if(isset($_REQUEST['redirigido'])){
-		echo "<div class='alert alert-danger' role='alert'>Debes estar logueado para continuar.</div>";
-	}
-	
-	if(!isset($_REQUEST["iniciar"])){
-		$usuario="";
-		imprimirFormulario($usuario);
-	}else{
-		$errores="";
-		//datos formularios
-		$usuario=recoge("usuario");
-		$password=recoge("password");
-		
-		//datos bbdd
-		$datos=seleccionarUsuario($usuario);
-		
-		$email=$datos["email"];
-		$pass=$datos["password"];
-		
-		//comprobamos campos formulario
-		if($usuario==""){
-			$errores=$errores."<li>El campo usuario no puede estar vacío.</li>";
-		}
-		
-		if($password=""){
-			$errores=$errores."<li>El campo contraseña no puede estar vacío.</li>";
-		}
-		
-	}
+<?php require_once("inc/encabezado.php"); ?>
 
-?>
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Iniciar Sesión</h1>
+			
+	<?php
+		if(isset($_REQUEST['redirigido'])){
+			echo "<div class='alert alert-danger' role='alert'>Debes estar logueado para continuar.</div>";
+		}
+		
+		if(!isset($_REQUEST['iniciar'])){
+			$usuario="";
+			imprimirFormulario($usuario);
+		}else{
+			$errores="";
+			
+			//datos formulario
+			$usuario=recoge('usuario');
+			$password=recoge('password');
+			
+			//datos bbdd
+			$datos=seleccionarAdministrador($usuario);
+			
+			$idadmin=$datos['idAdmin'];
+			$admin=$datos['usuario'];
+			$pass=$datos['password'];
+			
+			//comprobamos campos formulario
+			if($usuario==""){
+				$errores=$errores."<li>El campo usuario no puede estar vacío.</li>";
+			}
+			
+			if($password==""){
+				$errores=$errores."<li>El campo contraseña no puede estar vacío.</li>";
+			}
+	
+			//comprobamos si hay errores
+			if($errores==""){
+				if(password_verify($password, $pass)){
+					$_SESSION['admin']=$usuario;
+					$_SESSION['idAdmin']=$idUser;
+					header("Location:inicial.php");
+				}else{
+					$errores=$errores."<li>Los campos usuario o contraseña son incorrectos.</li>";
+					echo "<div class='alert alert-danger' role='alert'><ul>$errores</ul></div>";
+					imprimirFormulario($usuario);
+				}
+			}else{
+				echo "<div class='alert alert-danger' role='alert'><ul>$errores</ul></div>";
+				imprimirFormulario($usuario);
+			}
+		}
+	?>
+			
+			<br />
+      <p>Si no tiene cuenta, pulsa en el botón Registrarse.</p>
+			<p><a class="btn btn-primary" href="registrarse.php" role="button">Registrarse »</a></p>
+    </div>
+  </div>
 
 </main>
 

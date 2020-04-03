@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2020 a las 21:40:02
+-- Tiempo de generación: 03-04-2020 a las 13:11:50
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.4
 
@@ -34,6 +34,13 @@ CREATE TABLE `administradores` (
   `password` varchar(250) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `administradores`
+--
+
+INSERT INTO `administradores` (`idAdmin`, `usuario`, `password`) VALUES
+(1, 'admin', '$2y$10$xHKg.1zP6sqMe0AqmjKKROYs/mOaNNPqddLonSCwxUT3wwiUBs.NW');
+
 -- --------------------------------------------------------
 
 --
@@ -57,7 +64,15 @@ INSERT INTO `detallepedido` (`idDetallePedido`, `idPedido`, `idProducto`, `canti
 (2, 17, 4, 2, '9.99'),
 (3, 19, 5, 2, '12.99'),
 (4, 19, 8, 1, '18.99'),
-(5, 19, 4, 1, '9.99');
+(5, 19, 4, 1, '9.99'),
+(6, 20, 5, 2, '12.99'),
+(7, 20, 7, 1, '22.99'),
+(8, 21, 4, 2, '9.99'),
+(9, 21, 9, 2, '14.99'),
+(10, 22, 7, 1, '22.99'),
+(11, 22, 10, 1, '8.99'),
+(12, 23, 5, 2, '12.99'),
+(13, 23, 9, 2, '14.99');
 
 -- --------------------------------------------------------
 
@@ -100,7 +115,11 @@ CREATE TABLE `pedidos` (
 INSERT INTO `pedidos` (`idPedido`, `idUsuario`, `fecha`, `total`, `estado`, `online`) VALUES
 (16, 1, '2020-03-05 13:52:37', '19.98', 1, 1),
 (17, 1, '2020-03-05 13:52:59', '19.98', 1, 1),
-(19, 1, '2020-03-09 10:49:36', '54.96', 1, 1);
+(19, 1, '2020-03-09 10:49:36', '54.96', 1, 1),
+(20, 4, '2020-04-03 12:44:39', '48.97', 1, 1),
+(21, 4, '2020-04-03 12:47:34', '49.96', 1, 1),
+(22, 4, '2020-04-03 12:48:38', '31.98', 1, 1),
+(23, 2, '2020-04-03 12:50:45', '55.96', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -156,7 +175,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`idUsuario`, `email`, `password`, `nombre`, `apellidos`, `direccion`, `telefono`, `online`) VALUES
 (1, 'eber@gmail.com', '$2y$10$I8hPkjspXOldvx.FpZP2fepKQVKBoFUVKEX8I/TyivRYP5pD46672', 'Éber', 'Cordeiro Martínez', 'C/ María Martín nº2 2ºE', '629262356', 1),
 (2, 'nerea@gmail.com', '$2y$10$GBC.LeGhuD6ju89xESdknuBWtph2.8rA5uP.anx2/1TbYwGCL0YIu', 'Nerea', 'Pena Fernández', 'Avenida Fragata Almansa nº20 P2 4ºA', '628477469', 1),
-(3, 'manuel@gmail.com', '$2y$10$NocV12YE8NfN5KklyDSSi.lLMRtdt8yhWq.nqw0HDb6DSeiaNPpYm', 'Manuel', 'Vázquez Suárez', 'C/ Albarren nº18', '677899498', 1);
+(3, 'manuel@gmail.com', '$2y$10$NocV12YE8NfN5KklyDSSi.lLMRtdt8yhWq.nqw0HDb6DSeiaNPpYm', 'Manuel', 'Vázquez Suárez', 'C/ Albarren nº18', '677899498', 1),
+(4, 'ana@gmail.com', '$2y$10$xHKg.1zP6sqMe0AqmjKKROYs/mOaNNPqddLonSCwxUT3wwiUBs.NW', 'Ana', 'Pérez Santomé', 'Calle Alcalde Fandiño nº4 3D', '666555444', 1);
 
 --
 -- Índices para tablas volcadas
@@ -211,13 +231,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `administradores`
 --
 ALTER TABLE `administradores`
-  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `detallepedido`
 --
 ALTER TABLE `detallepedido`
-  MODIFY `idDetallePedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idDetallePedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `estadopedido`
@@ -229,7 +249,7 @@ ALTER TABLE `estadopedido`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -241,7 +261,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
